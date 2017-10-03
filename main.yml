@@ -100,3 +100,11 @@
         state: "started"
       with_items:
         - sssd
+
+    - name: "The SSH daemon must be configured to only use the SSHv2 protocol."
+      lineinfile:
+        dest: /etc/ssh/sshd_config
+        regexp: (?i)^#?protocol
+        line: Protocol 2
+        validate: sshd -t -f %s
+
